@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Flights - Horizon Travels</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <h1 class="logo">Horizon Travels</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/destinations">Destinations</a>
+      <a href="/mybookings">My Bookings</a>
+      <a href="/search">Search</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </div>
+</header>
+
+<main class="form-container">
+  <h2>🔍 Search Available Flights</h2>
+  <p>Find your perfect route and travel with ease across the UK.</p>
+
+  <form method="GET" action="/searchresults" class="styled-form">
+    <label for="route">Select Route:</label>
+    <select name="route" id="route" required>
+      <option value="">-- Select a Route --</option>
+      {% for route in routes %}
+        <option value="{{ route.airport }}-{{ route.destination }}">
+          {{ route.airport }} → {{ route.destination }}
+        </option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-primary">🔎 Search</button>
+  </form>    
+</main>
+
+<footer>
+  <p>&copy; 2025 Horizon Travels. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

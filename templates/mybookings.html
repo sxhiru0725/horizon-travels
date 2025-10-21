@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Bookings - Horizon Travels</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    main {
+      max-width: 1000px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    h2 {
+      margin-bottom: 15px;
+    }
+    .flash {
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    .flash.success { background-color: #d4edda; color: #155724; }
+    .flash.danger { background-color: #f8d7da; color: #721c24; }
+    .flash.warning { background-color: #fff3cd; color: #856404; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead {
+      background-color: #0d6efd;
+      color: white;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #eef5ff;
+    }
+    .btn {
+      padding: 5px 10px;
+      margin: 2px;
+      background-color: #198754;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    .btn:hover {
+      background-color: #146c43;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <h1 class="logo">Horizon Travels</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/destinations">Destinations</a>
+      <a href="/search">Search</a>
+      <a href="/mybookings">My Bookings</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h2>My Bookings</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% if bookings %}
+    <table>
+      <thead>
+        <tr>
+          <th>Booking ID</th>
+          <th>Route</th>
+          <th>Flight Date</th>
+          <th>Class</th>
+          <th>Seats</th>
+          <th>Total (£)</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for booking in bookings %}
+        <tr>
+          <td>{{ booking.id }}</td>
+          <td>{{ booking.origin }} → {{ booking.destination }}</td>
+          <td>{{ booking.flight_date }}</td>
+          <td>{{ booking.class }}</td>
+          <td>{{ booking.seats }}</td>
+          <td>£{{ booking.total_price }}</td>
+          <td>
+            <a href="{{ url_for('editbooking', booking_id=booking.id) }}" class="btn">Edit</a>
+            <a href="{{ url_for('cancelbooking', booking_id=booking.id) }}" class="btn">Cancel</a>
+            <a href="{{ url_for('downloadreceipt', booking_id=booking.id) }}" class="btn">Download</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>You have no bookings yet.</p>
+  {% endif %}
+</main>
+
+<footer>
+  <p>&copy; 2025 Horizon Travels. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

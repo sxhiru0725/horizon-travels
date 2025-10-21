@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard - Horizon Travels</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      background-color: #f0f8ff;
+    }
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h2 {
+      color: #0d6efd;
+      margin-bottom: 20px;
+      font-size: 2em;
+    }
+    .welcome {
+      font-size: 1.2em;
+      margin-bottom: 25px;
+      color: #333;
+    }
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .btn {
+      background-color: #0d6efd;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #0a58ca;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <h1 class="logo">Horizon Travels</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/search">Search</a>
+      <a href="/mybookings">My Bookings</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h2>Welcome, {{ name }}! 👋</h2>
+  <p class="welcome">We're thrilled to have you onboard. Plan your next trip with ease!</p>
+
+  <div class="btn-group">
+    <a href="/search" class="btn">Search Flights</a>
+    <a href="/destinations" class="btn">Popular Destinations</a>
+    <a href="/booking" class="btn">Book a Flight</a>
+    <a href="/mybookings" class="btn">View My Bookings</a>
+    <a class="btn" href="{{ url_for('change_password') }}">Change Password</a>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2025 Horizon Travels. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book a Flight - Horizon Travels</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .form-card {
+      background: #fff;
+      padding: 2rem;
+      max-width: 500px;
+      margin: 2rem auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .form-card label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    .form-card select,
+    .form-card input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 0.3rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .form-card .btn {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      background: #f4b942;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .form-card .btn:hover {
+      background: #d49e32;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <h1 class="logo">Horizon Travels</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/destinations">Destinations</a>
+      <a href="/mybookings">My Bookings</a>
+      <a href="/search">Search</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="form-card">
+    <h2 style="text-align: center;">Book Your Flight</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/booking" class="styled-form">
+      <select name="route" id="route" required>
+        <option value="">-- Select Destination --</option>
+        <option value="Newcastle-Bristol">Newcastle → Bristol</option>
+        <option value="Bristol-Newcastle">Bristol → Newcastle</option>
+        <option value="Cardiff-Edinburgh">Cardiff → Edinburgh</option>
+        <option value="Bristol-Manchester">Bristol → Manchester</option>
+        <option value="Manchester-Bristol">Manchester → Bristol</option>
+        <option value="Bristol-London">Bristol → London</option>
+        <option value="London-Manchester">London → Manchester</option>
+        <option value="Manchester-Glasgow">Manchester → Glasgow</option>
+        <option value="Bristol-Glasgow">Bristol → Glasgow</option>
+        <option value="Glasgow-Newcastle">Glasgow → Newcastle</option>
+        <option value="Newcastle-Manchester">Newcastle → Manchester</option>
+        <option value="Portsmouth-Dundee">Portsmouth → Dundee</option>
+        <option value="Dundee-Portsmouth">Dundee → Portsmouth</option>
+        <option value="Edinburgh-Cardiff">Edinburgh → Cardiff</option>
+        <option value="Southampton-Manchester">Southampton → Manchester</option>
+        <option value="Manchester-Southampton">Manchester → Southampton</option>
+        <option value="Birmingham-Newcastle">Birmingham → Newcastle</option>
+        <option value="Newcastle-Birmingham">Newcastle → Birmingham</option>
+        <option value="Aberdeen-Portsmouth">Aberdeen → Portsmouth</option>
+      </select>
+
+      <label for="booking_date">Date:</label>
+      <input type="date" name="booking_date" required>
+
+      <label for="seats">Seats:</label>
+        <input type="number" name="seats" min="1" value="1" required oninput="validateSeats(this)">
+        <span id="seat-error" style="color: red; display: none;">Please enter at least 1 seat.</span>
+      
+      <label for="route">Destination:</label>
+
+      <label for="class">Class:</label>
+      <select name="class" id="class" required>
+        <option value="Economy">Economy</option>
+        <option value="Business">Business</option>
+      </select>
+
+      <label for="total_price">Total Price (£):</label>
+      <input type="text" name="total_price" id="total_price" readonly>
+
+      <button type="submit" class="btn">Confirm Booking</button>
+    </form>
+  </div>
+</main>
+
+<footer>
+  <p style="text-align:center;">&copy; 2025 Horizon Travels. All rights reserved.</p>
+</footer>
+
+<script>
+  const routeSelect = document.getElementById('route');
+  const classSelect = document.getElementById('class');
+  const seatsField = document.querySelector('input[name="seats"]');
+  const priceField = document.getElementById('total_price');
+
+  const basePrices = {
+    'Newcastle-Bristol': 90,
+    'Bristol-Newcastle': 90,
+    'Cardiff-Edinburgh': 90,
+    'Bristol-Manchester': 80,
+    'Manchester-Bristol': 80,
+    'Bristol-London': 80,
+    'London-Manchester': 100,
+    'Manchester-Glasgow': 100,
+    'Bristol-Glasgow': 110,
+    'Glasgow-Newcastle': 100,
+    'Newcastle-Manchester': 100,
+    'Portsmouth-Dundee': 120,
+    'Dundee-Portsmouth': 120,
+    'Edinburgh-Cardiff': 90,
+    'Southampton-Manchester': 90,
+    'Manchester-Southampton': 90,
+    'Birmingham-Newcastle': 100,
+    'Newcastle-Birmingham': 100,
+    'Aberdeen-Portsmouth': 100,
+  };
+
+  function updatePrice() {
+    const route = routeSelect.value;
+    const cls = classSelect.value;
+    const seats = parseInt(seatsField.value || 1);
+    const base = basePrices[route] || 0;
+    let multiplier = 1;
+    if (cls === 'Business') multiplier = 1.5;
+    else if (cls === 'First') multiplier = 2;
+    priceField.value = (base * multiplier * seats).toFixed(2);
+  }
+
+  routeSelect.addEventListener('change', updatePrice);
+  classSelect.addEventListener('change', updatePrice);
+  seatsField.addEventListener('input', updatePrice);
+</script>
+
+<script>
+  function validateSeats(input) {
+    const error = document.getElementById('seat-error');
+    if (input.value < 1) {
+      error.style.display = 'block';
+      input.setCustomValidity("Please select at least 1 seat");
+    } else {
+      error.style.display = 'none';
+      input.setCustomValidity("");
+    }
+  }
+  
+  document.querySelector('form').addEventListener('submit', function (e) {
+    const seats = document.querySelector('input[name="seats"]');
+    if (seats.value < 1) {
+      e.preventDefault();
+      validateSeats(seats);
+    }
+  });
+  </script>  
+
+</body>
+</html>

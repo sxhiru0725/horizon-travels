@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Booking - Horizon Travels</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <h1 class="logo">Horizon Travels</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/destinations">Destinations</a>
+      <a href="/search">Search</a>
+      <a href="/mybookings">My Bookings</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </div>
+</header>
+
+<main class="form-container">
+  <h2>✏️ Edit Booking</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" class="styled-form">
+
+    <label for="booking_date">Booking Date:</label>
+    <input type="date" name="booking_date" value="{{ booking.booking_date }}" required>
+
+    <label for="seats">Number of Seats:</label>
+    <input type="number" name="seats" min="1" value="{{ booking.seats }}" required>
+
+    <label for="class">Travel Class:</label>
+    <select name="class" required>
+      <option value="Economy" {% if booking.class == 'Economy' %}selected{% endif %}>Economy</option>
+      <option value="Business" {% if booking.class == 'Business' %}selected{% endif %}>Business</option>
+    </select>
+
+    <button type="submit" class="btn">Update Booking</button>
+  </form>
+
+</main>
+
+<footer>
+  <p>&copy; 2025 Horizon Travels. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

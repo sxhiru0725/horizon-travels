@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking Confirmed - Horizon Travels</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      background-color: #f0f8ff;
+    }
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h2 {
+      color: #198754;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    .details {
+      text-align: left;
+      margin: 0 auto 25px auto;
+      max-width: 500px;
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      line-height: 1.6;
+      border: 1px solid #dee2e6;
+    }
+    .details strong {
+      display: inline-block;
+      width: 140px;
+      color: #0d6efd;
+    }
+    .btn {
+      background-color: #0d6efd;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #0a58ca;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <h1 class="logo">Horizon Travels</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/search">Search</a>
+      <a href="/mybookings">My Bookings</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h2>✅ Booking Confirmed!</h2>
+
+  <div class="details">
+    <p><strong>Route:</strong> {{ booking.origin }} → {{ booking.destination }}</p>
+    <p><strong>Flight Date:</strong> {{ booking.flight_date }}</p>
+    <p><strong>Departure:</strong> {{ booking.departure_time }}</p>
+    <p><strong>Class:</strong> {{ booking.class }}</p>
+    <p><strong>Seats:</strong> {{ booking.seats }}</p>
+    <p><strong>Booking Date:</strong> {{ booking.booking_date }}</p>
+    <p><strong>Total Price:</strong> £{{ booking.total_price }}</p>
+  </div>
+
+  <a href="/mybookings" class="btn">Go to My Bookings</a>
+</main>
+
+<footer>
+  <p>&copy; 2025 Horizon Travels. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Journeys - Horizon Travels</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #19747E;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    thead {
+      background-color: #19747E;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f3f3f3;
+    }
+    tr:hover {
+      background-color: #e2f0f2;
+    }
+    .btn-action {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      margin-right: 6px;
+    }
+    .btn-edit {
+      background-color: #ffc107;
+      color: black;
+    }
+    .btn-delete {
+      background-color: #dc3545;
+      color: white;
+    }
+    .btn-add {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      display: inline-block;
+      margin: 10px 0 30px 0;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    .back-link {
+      text-align: center;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <h1 class="logo">Admin Panel</h1>
+    <nav>
+      <a href="/logout">Logout</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h2>🛫 Manage Routes</h2>
+  <a class="btn-add" href="#">+ Add New Route</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Route ID</th>
+        <th>Airport</th>
+        <th>Destination</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for route in routes %}
+      <tr>
+        <td>{{ route.route_id }}</td>
+        <td>{{ route.airport }}</td>
+        <td>{{ route.destination }}</td>
+        <td>
+          <a href="#" class="btn-action btn-edit">Edit</a>
+          <a href="#" class="btn-action btn-delete" onclick="return confirm('Delete this route?')">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>💺 Manage Airfares</h2>
+  <a class="btn-add" href="#">+ Add New Fare</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Fare ID</th>
+        <th>Route ID</th>
+        <th>Class</th>
+        <th>Fare (£)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for fare in fares %}
+      <tr>
+        <td>{{ fare.airfare_id }}</td>
+        <td>{{ fare.route_id }}</td>
+        <td>{{ fare.class }}</td>
+        <td>£{{ fare.fare }}</td>
+        <td>
+          <a href="#" class="btn-action btn-edit">Edit</a>
+          <a href="#" class="btn-action btn-delete" onclick="return confirm('Delete this fare?')">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="back-link">
+    <a class="btn" href="{{ url_for('admin_dashboard') }}">⬅ Back to Dashboard</a>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2025 Horizon Travels. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

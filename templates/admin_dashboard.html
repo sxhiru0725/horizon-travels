@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel - Horizon Travels</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    main {
+      max-width: 1000px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    h2, h3 {
+      margin-bottom: 10px;
+    }
+    .metrics {
+      margin-bottom: 20px;
+    }
+    .metrics span {
+      display: block;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead {
+      background-color: #0d6efd;
+      color: white;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #eef5ff;
+    }
+    .btn {
+      background-color: #dc3545;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #b02a37;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <h1 class="logo">Admin Panel</h1>
+    <nav>
+      <a href="/logout">Logout</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h2>📊 Admin Dashboard</h2>
+  <div class="metrics">
+    <span>Total Bookings: {{ metrics.total_bookings }}</span>
+    <span>Total Revenue: £{{ metrics.total_revenue }}</span>
+    <span>Top Route: {{ metrics.top_route }}</span>
+    <span>Active Users: {{ metrics.active_users }}</span>
+    <a class="btn" href="/admin/change_password">Change Password</a>
+    <a class="btn" href="/admin/reports" class="btn">View Reports</a>
+    <a class="btn" href="/admin_manage_journeys">Manage Journeys</a>
+  </div>
+
+  <h3>All Bookings</h3>
+  {% if bookings %}
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Route</th>
+        <th>Flight Date</th>
+        <th>Class</th>
+        <th>Seats</th>
+        <th>Total (£)</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for b in bookings %}
+      <tr>
+        <td>{{ b.full_name }}</td>
+        <td>{{ b.airport }} → {{ b.destination }}</td>
+        <td>{{ b.flight_date }}</td>
+        <td>{{ b.class }}</td>
+        <td>{{ b.seats }}</td>
+        <td>£{{ b.total_price }}</td>
+        <td>
+          <a href="{{ url_for('delete_booking_admin', booking_id=b.id) }}" class="btn"
+             onclick="return confirm('Are you sure you want to delete this booking?');">
+            Delete
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>No bookings found.</p>
+  {% endif %}
+</main>
+
+<footer>
+  <p>&copy; 2025 Horizon Travels. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

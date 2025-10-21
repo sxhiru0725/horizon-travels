@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Destinations - Horizon Travels</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      background-color: #f0f8ff;
+    }
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #0d6efd;
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    thead {
+      background-color: #0d6efd;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #eef5ff;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <h1 class="logo">Horizon Travels</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/search">Search</a>
+      <a href="/mybookings">My Bookings</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h2>🌍 All Destinations & Flight Details</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>From</th>
+        <th>To</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Fare (£)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Newcastle</td><td>Bristol</td><td>17:45</td><td>19:00</td><td>90</td></tr>
+      <tr><td>Bristol</td><td>Newcastle</td><td>09:00</td><td>10:15</td><td>90</td></tr>
+      <tr><td>Cardiff</td><td>Edinburgh</td><td>07:00</td><td>08:30</td><td>90</td></tr>
+      <tr><td>Bristol</td><td>Manchester</td><td>12:30</td><td>13:30</td><td>80</td></tr>
+      <tr><td>Manchester</td><td>Bristol</td><td>13:20</td><td>14:20</td><td>80</td></tr>
+      <tr><td>Bristol</td><td>London</td><td>07:40</td><td>08:20</td><td>80</td></tr>
+      <tr><td>London</td><td>Manchester</td><td>13:00</td><td>14:00</td><td>100</td></tr>
+      <tr><td>Manchester</td><td>Glasgow</td><td>12:20</td><td>13:30</td><td>100</td></tr>
+      <tr><td>Bristol</td><td>Glasgow</td><td>08:40</td><td>09:45</td><td>110</td></tr>
+      <tr><td>Glasgow</td><td>Newcastle</td><td>14:30</td><td>15:45</td><td>100</td></tr>
+      <tr><td>Newcastle</td><td>Manchester</td><td>16:15</td><td>17:05</td><td>100</td></tr>
+      <tr><td>Manchester</td><td>Bristol</td><td>18:25</td><td>19:30</td><td>80</td></tr>
+      <tr><td>Bristol</td><td>Manchester</td><td>06:20</td><td>07:20</td><td>80</td></tr>
+      <tr><td>Portsmouth</td><td>Dundee</td><td>12:00</td><td>14:00</td><td>120</td></tr>
+      <tr><td>Dundee</td><td>Portsmouth</td><td>10:00</td><td>12:00</td><td>120</td></tr>
+      <tr><td>Edinburgh</td><td>Cardiff</td><td>18:30</td><td>20:00</td><td>90</td></tr>
+      <tr><td>Southampton</td><td>Manchester</td><td>12:00</td><td>13:30</td><td>90</td></tr>
+      <tr><td>Manchester</td><td>Southampton</td><td>19:00</td><td>20:30</td><td>90</td></tr>
+      <tr><td>Birmingham</td><td>Newcastle</td><td>17:00</td><td>17:45</td><td>100</td></tr>
+      <tr><td>Newcastle</td><td>Birmingham</td><td>07:00</td><td>07:45</td><td>100</td></tr>
+      <tr><td>Aberdeen</td><td>Portsmouth</td><td>08:00</td><td>09:30</td><td>100</td></tr>
+    </tbody>
+  </table>
+</main>
+
+<footer>
+  <p>&copy; 2025 Horizon Travels. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

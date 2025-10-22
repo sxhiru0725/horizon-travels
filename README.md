@@ -56,7 +56,7 @@ horizon-travels/
 ## 🧠 How to Run Locally
 
 **Clone this repository**
-git clone https://github.com/sahiruimadith/horizon-travels.git
+git clone https://github.com/sxhiru0725/horizon-travels.git
 cd horizon-travels
 
 **Set up the environment**

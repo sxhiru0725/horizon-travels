@@ -1,3 +1,4 @@
+import utils.session
 from flask import Flask, render_template, request, redirect, url_for, session, flash, Response
 from dbfunc import getConnection
 import hashlib
